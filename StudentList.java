@@ -4,6 +4,7 @@ import java.util.*;
 public class StudentList {
 	public static void main(String[] args) {
 //		Check arguments
+
 		if(args[0].equals("a")) {
 			System.out.println("Loading data ...");			
 			try {
@@ -14,7 +15,7 @@ public class StudentList {
 					System.out.println(j);
 				}
 			}
-			catch (Exception e)b{
+			catch (Exception e) {
 			}
 			System.out.println("Data Loaded.");
 		}
@@ -91,6 +92,11 @@ public class StudentList {
 			catch (Exception e) {
 			}
 			System.out.println("Data Loaded.");				
+		}
+		else {
+			System.err.println("Wrong argument");
+			System.err.println("Exiting program");
+			System.exit(1);
 		}
 	}
 }
