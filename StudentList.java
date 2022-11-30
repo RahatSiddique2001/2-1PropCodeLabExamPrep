@@ -19,8 +19,7 @@ public class StudentList {
 		if(argument[0].equals(Constants.allStudents)) {
 			System.out.println(Constants.loadingData);
 			try {
-				String line =getLineFromFile();
-				String students[] = line.split(Constants.spliting);
+				String students[] = getLineFromFile().split(Constants.spliting);
 				for(String j : students) {
 					System.out.println(j);
 				}
@@ -32,11 +31,8 @@ public class StudentList {
 		else if(argument[0].equals(Constants.randomStudent)) {
 			System.out.println(Constants.loadingData);
 			try {
-				String line = getLineFromFile();
-				String students[] = line.split(Constants.spliting);
-				Random random = new Random();
-				int variable = random.nextInt(students.length);
-				System.out.println(students[variable]);
+				String students[] = getLineFromFile().split(Constants.spliting);
+				System.out.println(students[new Random().nextInt(students.length)].trim());
 			}
 			catch (Exception e) {
 			}
@@ -45,13 +41,10 @@ public class StudentList {
 		else if(argument[0].contains(Constants.addition)) {
 			System.out.println(Constants.loadingData);
 			try {
+				String previousContent = getLineFromFile();
 				BufferedWriter bufferedWriter = getLineBufferedWriter();
-				String newStudent = argument[0].substring(1);
-				Date date = new Date();
-				String dateFormatPattern = Constants.datePattern;
-				DateFormat dateFormat = new SimpleDateFormat(dateFormatPattern);
-				String formatDate= dateFormat.format(date);
-				bufferedWriter.write(Constants.spliting+newStudent+Constants.listLastUp+formatDate);
+				bufferedWriter.write(previousContent);
+				bufferedWriter.write(Constants.spliting + " " +argument[0].substring(1)+Constants.listLastUp+new SimpleDateFormat(Constants.datePattern).format(new Date()));
 				bufferedWriter.close();
 			}
 			catch (Exception e) {
@@ -61,12 +54,11 @@ public class StudentList {
 		else if(argument[0].contains(Constants.search)) {
 			System.out.println(Constants.loadingData);
 			try {
-				String line = getLineFromFile();
-				String students[] = line.split(Constants.spliting);
+				String students[] = getLineFromFile().split(Constants.spliting);
 				boolean done = false;
 				String newStudent = argument[0].substring(1);
 				for(int index = 0; index<students.length && !done; index++) {
-					if(students[index].equals(newStudent)) {
+					if(students[index].trim().equals(argument[0].substring(1))) {
 						System.out.println(Constants.found);
 						done=true;
 					}
@@ -79,8 +71,7 @@ public class StudentList {
 		else if(argument[0].contains(Constants.words)) {
 			System.out.println(Constants.loadingData);
 			try {
-				String line = getLineFromFile();
-				char array[] = line.toCharArray();
+				char array[] = getLineFromFile().toCharArray();
 				boolean in_word = false;
 				int count=0;
 				for(char c:array) {
